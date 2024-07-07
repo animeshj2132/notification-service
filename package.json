@@ -1,0 +1,38 @@
+{
+  "name": "notification-service",
+  "version": "1.0.0",
+  "description": "notification and authentication service to get notification for user",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/animeshj2132/notification-service.git"
+  },
+  "author": "Animesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/animeshj2132/notification-service/issues.git"
+  },
+  "homepage": "https://github.com/animeshj2132/notification-service#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^6.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^3.1.4"
+  }
+}
