@@ -6,16 +6,16 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   name: Auth
+ *   name: User
  *   description: Authentication related endpoints
  */
 
 /**
  * @swagger
- * /api/auth/register:
+ * /api/user/signup:
  *   post:
  *     summary: Register a new user
- *     tags: [Auth]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -35,14 +35,14 @@ const router = express.Router();
  *       400:
  *         description: Invalid input
  */
-router.post('/register', createUser);
+router.post('/signup', createUser);
 
 /**
  * @swagger
- * /api/auth/login:
+ * /api/user/login:
  *   post:
  *     summary: Login and receive a JWT
- *     tags: [Auth]
+ *     tags: [user]
  *     requestBody:
  *       required: true
  *       content:

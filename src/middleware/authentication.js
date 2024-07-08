@@ -1,10 +1,9 @@
-/* eslint-disable func-names */
 import jwt from 'jsonwebtoken';
 import { isValidUUID } from './validation.js';
 import userModel from '../models/userModel.js';
 
 // eslint-disable-next-line consistent-return
-const authenticate = async function (req, res, next) {
+async function authenticate(req, res, next) {
   try {
     const userId = req.params.userId ? req.params.userId.trim() : null;
 
@@ -41,6 +40,6 @@ const authenticate = async function (req, res, next) {
     }
     return res.status(500).send({ status: false, message: error.message });
   }
-};
+}
 
 export default authenticate;

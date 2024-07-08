@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
@@ -9,7 +8,7 @@ import {
 
 dotenv.config();
 
-export const createUser = async function (req, res) {
+export async function createUser(req, res) {
   try {
     const data = req.body;
     const { username, email, password } = data;
@@ -37,10 +36,12 @@ export const createUser = async function (req, res) {
       return res.status(400).send({ status: false, msg: 'email is not valid' });
     }
 
-    if (!isValidPassword(password)) {
-      return res.status(400).send({ status: false, msg: 'invalid password' });
+    if (password.length < 8 || password.length > 15) {
+      return res.status(400).send({ status: false, msg: 'password must be at least 8 characters long and should be less than 15 characters' });
     }
-
+    if (!isValidPassword(password)) {
+      return res.status(400).send({ status: false, msg: 'enter valid password it should contain one capital letter and one special character(@#$%&*!)  ' });
+    }
     const findEmail = await userModel.findOne({ email: email.trim() });
     if (findEmail) {
       return res.status(400).send({ status: false, msg: 'this Email is already in use' });
@@ -54,13 +55,14 @@ export const createUser = async function (req, res) {
     newUserData = newUserData.toObject();
     delete newUserData._id;
     delete newUserData.password;
+    delete newUserData.__v;
     return res.status(201).send({ status: true, message: 'User created successfully', data: newUserData });
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
-};
+}
 
-export const login = async function (req, res) {
+export async function login(req, res) {
   try {
     const { email, password } = req.body;
 
@@ -89,4 +91,4 @@ export const login = async function (req, res) {
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
-};
+}

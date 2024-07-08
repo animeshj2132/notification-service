@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import authRoutes from './router/userRoutes.js';
+import userRoutes from './router/userRoutes.js';
 import notificationRoutes from './router/notificationRoutes.js';
+import { connectRabbitMQ } from './rabbitmq.js';
+import { setupWebSocket, getBroadcastFunction } from './websocket.js';
 
 dotenv.config();
 
@@ -31,7 +33,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'http://localhost:3001',
         description: 'Local server',
       },
     ],
@@ -56,10 +58,17 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3001;
+
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Setup WebSocket server
+setupWebSocket(server);
+
+// Connect to RabbitMQ with broadcast function
+connectRabbitMQ(getBroadcastFunction);

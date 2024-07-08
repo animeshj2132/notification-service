@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-const notificationSchema = new mongoose.Schema({
+const notificationModel = new mongoose.Schema({
   id: {
     type: String,
     default: uuidv4,
@@ -22,4 +22,4 @@ const notificationSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-export default mongoose.model('Notification', notificationSchema);
+export default mongoose.model('Notification', notificationModel);
